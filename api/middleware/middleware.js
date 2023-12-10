@@ -33,14 +33,21 @@ function validateUser(req, res, next) {
       message: "missing required name field",
     });
   } else {
-    req.name = name.trim()
+    req.name = name.trim();
     next();
   }
 }
 
 function validatePost(req, res, next) {
-  console.log("validatePost middleware");
-  next();
+  const { text } = req.body;
+  if (!text || !text.trim()) {
+    res.status(400).json({
+      message: "missing required text field",
+    });
+  } else {
+    req.text = text.trim();
+    next();
+  }
 }
 
 // do not forget to expose these functions to other modules
